@@ -1,3 +1,9 @@
+13 Jun 2012
+-----------
+
+v.0.1.12
+For RSpec pass example object to the screenshot method so the screenshot and HTML of it files are named after the example.description instead of a timestamp. If example object is not there the current_path is being used for the file name which might not be the best fallback.
+
 15 Feb 2012
 -----------
 

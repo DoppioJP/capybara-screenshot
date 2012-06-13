@@ -1,6 +1,17 @@
 module Capybara
   module Screenshot
     module Saver
+
+      # Pass the RSpec current example object to the Capybara::Screenshot::Saver module
+      def self.example=(the_example)
+        @example = the_example
+      end
+      
+      # Access RSpec current example object
+      def self.example
+        @example
+      end
+      
       def self.screen_shot_and_save_page(capybara, body)
         #Our default return values
         html_path = nil
@@ -9,7 +20,13 @@ module Capybara
         # if current_path empty then nothing to screen shot as browser has not loaded any URL
         unless capybara.current_path.to_s.empty?
           require 'capybara/util/save_and_open_page'
-          file_base_name = "#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}"
+          if self.example.respond_to?(:description)
+            file_base_name = self.example.description
+          else
+            # file_base_name = "#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}"
+            file_base_name = capybara.current_session.current_path
+          end
+
           #will save to the capybara.save_and_open_page_path
           html_path = "{capybara.save_and_open_page_path}#{file_base_name}.html"
           capybara.save_page(body, "#{file_base_name}.html")

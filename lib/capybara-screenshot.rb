@@ -26,6 +26,10 @@ if defined?(RSpec)
   RSpec.configure do |config|
     config.after do
       if example.exception && example.metadata[:type] == :request
+
+        # Pass the current example object into the Saver module so it can use description in the filename
+        Capybara::Screenshot::Saver.example = example
+
         image = Capybara::Screenshot::RSpec.screen_shot_and_save_page[:image]
         example.metadata[:full_description] += "\n     Screenshot: #{image}"
       end

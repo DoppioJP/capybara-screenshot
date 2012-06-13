@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "capybara-screenshot"
   s.version     = Capybara::Screenshot::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Matthew O'Riordan"]
+  s.authors     = ["Matthew O'Riordan", "JjP"]
   s.email       = ["matthew.oriordan@gmail.com"]
   s.homepage    = "http://github.com/mattheworiordan/capybara-screenshot"
   s.summary     = %q{Automatically create snapshots when Cucumber steps fail with Capybara and Rails}
