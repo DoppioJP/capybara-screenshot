@@ -20,6 +20,9 @@ module Capybara
         # if current_path empty then nothing to screen shot as browser has not loaded any URL
         unless capybara.current_path.to_s.empty?
           require 'capybara/util/save_and_open_page'
+          
+          # Get the current path for capybara files in case that is going to be changed
+          capybara_save_and_open_page_path = capybara.save_and_open_page_path
           if self.example.respond_to?(:description)
 
             # Sub folder for each example group
@@ -46,6 +49,9 @@ module Capybara
           else
             screenshot_path = File.join(capybara.save_and_open_page_path.to_s, "#{file_base_name}.png")
           end
+          
+          # Remove sub folder for example group from the capybara path
+          capybara.save_and_open_page_path = capybara_save_and_open_page_path
 
           #We try to figure out how to call the screenshot method on the current driver
           case capybara.current_driver
