@@ -21,6 +21,10 @@ module Capybara
         unless capybara.current_path.to_s.empty?
           require 'capybara/util/save_and_open_page'
           if self.example.respond_to?(:description)
+
+            # Sub folder for each example group
+            capybara.save_and_open_page_path += self.example.example_group.metadata[:example_group][:description_args].first
+            
             file_base_name = self.example.description
           else
             # file_base_name = "#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}"
